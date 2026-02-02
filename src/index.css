@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* AuraMind Design System - Dark Glassmorphism Theme */
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 186 100% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 30% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 186 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom AuraMind tokens */
+    --glass: 222 47% 10%;
+    --glass-border: 222 30% 22%;
+    --glow-primary: 186 100% 50%;
+    --glow-accent: 262 83% 58%;
+    --terminal-bg: 222 47% 5%;
+    --terminal-text: 142 70% 60%;
+    --success: 142 70% 45%;
+    --warning: 38 92% 50%;
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 186 100% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-ring: 186 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-glass/40 backdrop-blur-xl border border-glass-border rounded-xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:bg-glass/60 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05);
+  }
+
+  .terminal-window {
+    @apply bg-terminal-bg border border-glass-border rounded-lg font-mono text-sm;
+  }
+
+  .terminal-text {
+    @apply text-terminal-text;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient;
+  }
+
+  .gradient-border {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    padding: 1px;
+    border-radius: var(--radius);
+  }
+
+  .gradient-border-inner {
+    @apply bg-card rounded-[calc(var(--radius)-1px)] h-full w-full;
+  }
+
+  .stat-card {
+    @apply glass-card p-4 relative overflow-hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent;
+  }
+
+  .dropzone {
+    @apply glass-card border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 transition-all duration-300 cursor-pointer;
+  }
+
+  .dropzone-active {
+    @apply border-primary bg-primary/5 shadow-lg shadow-primary/10;
+  }
+
+  .timeline-marker {
+    @apply w-3 h-3 rounded-full bg-primary shadow-lg shadow-primary/50 cursor-pointer transition-transform hover:scale-125;
+  }
+
+  .thought-line {
+    @apply py-1 px-2 hover:bg-muted/30 rounded transition-colors;
+  }
+
+  .chat-bubble-user {
+    @apply bg-primary text-primary-foreground rounded-2xl rounded-br-md px-4 py-2;
+  }
+
+  .chat-bubble-ai {
+    @apply glass-card px-4 py-2 rounded-2xl rounded-bl-md;
+  }
+
+  .blueprint-card {
+    @apply glass-card-hover overflow-hidden cursor-pointer;
+  }
+
+  .blueprint-card img {
+    @apply transition-transform duration-500;
+  }
+
+  /* group-hover effect for image scaling */
+  .blueprint-card.group:hover img {
+    transform: scale(1.05);
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground;
+  }
+
+  .nav-link-active {
+    @apply bg-primary/10 text-primary border-l-2 border-primary;
+  }
+
+  .feature-card {
+    @apply glass-card-hover p-6 relative overflow-hidden;
+  }
+
+  .feature-card::after {
+    content: '';
+    @apply absolute -top-20 -right-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl transition-opacity duration-500 opacity-0;
+  }
+
+  .feature-card:hover::after {
+    @apply opacity-100;
+  }
+}
+
+@layer utilities {
+  .animate-gradient {
+    animation: gradient 3s linear infinite;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-typing {
+    animation: typing 1.5s steps(20) infinite;
+  }
+
+  @keyframes typing {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+}
